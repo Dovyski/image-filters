@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- 
+        * Copyright (c) 2012 Google Inc.
+        *
+        * Licensed under the Apache License, Version 2.0 (the "License");
+        * you may not use this file except in compliance with the License.
+        * You may obtain a copy of the License at
+        *
+        *     http://www.apache.org/licenses/LICENSE-2.0
+        *
+        * Unless required by applicable law or agreed to in writing, software
+        * distributed under the License is distributed on an "AS IS" BASIS,
+        * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        * See the License for the specific language governing permissions and
+        * limitations under the License.
+        *
+        * Author: Ilmari Heikkinen <ilmari@google.com>
+        *
+    -->
+    <title>Filtros de Imagem</title>
+    <script src="../js/filters.js"></script>
+</head>
+<body>
+    <h2>Filtros de Imagem</h2>
+
+    <div>
+        <div style="width: 50%; float: left;">
+            <figure>
+                <img id="water" src="../img/demo_small.png" width="600" height="337">
+                <figcaption>Imagem original</figcaption>
+            </figure>
+        </div>
+        <div style="width: 50%; float: right">
+            <figure>
+                <canvas id="destWater" width="600" height="337"></canvas>
+                <figcaption>Imagem com filtro</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <div>
+        <div style="width: 50%; float: left;">
+            <figure>
+                <img id="car" src="../img/fuca.jpg" width="910" height="1365">
+                <figcaption>Imagem original</figcaption>
+            </figure>
+        </div>
+        <div style="width: 50%; float: right">
+            <figure>
+                <canvas id="destCar" width="910" height="1365"></canvas>
+                <figcaption>Imagem com filtro</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <!-- 
+        Implementação dos filtros
+    -->
+    <script type="text/javascript">
+
+        // Aplica um filtro de escala de cinza na imagem
+        function grayscale(pixels, args) {
+            console.log(pixels);
+            var d = pixels.data;
+            for (var i = 0; i < d.length; i += 4) {
+                var r = d[i];
+                var g = d[i + 1];
+                var b = d[i + 2];
+                // CIE luminance for the RGB
+                var v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+                d[i] = d[i + 1] = d[i + 2] = v
+            }
+            return pixels;
+        };
+
+        // Aumenta o brilho da imagem
+        function brightness(pixels, adjustment) {
+            var d = pixels.data;
+            for (var i = 0; i < d.length; i += 4) {
+                d[i] += adjustment;
+                d[i + 1] += adjustment;
+                d[i + 2] += adjustment;
+            }
+            return pixels;
+        };
+
+        // Aumenta a "potência de uma determinada cor"
+        function saturation(pixels, values) {
+            var d = pixels.data;
+            for (var i = 0; i < d.length; i += 4) {
+                var r = d[i];
+                var g = d[i + 1];
+                var b = d[i + 2];
+
+                d[i] *= values[0];
+                d[i + 1] *= values[1];
+                d[i + 2] *= values[2];
+            }
+            return pixels;
+        };
+
+        // Aplica um limiar na imagem
+        function threshold(pixels, threshold) {
+            var d = pixels.data;
+            for (var i = 0; i < d.length; i += 4) {
+                var r = d[i];
+                var g = d[i + 1];
+                var b = d[i + 2];
+                
+                var v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+                var n = 0;
+                
+                if (v >= threshold) {
+                    n = 255;
+                }
+
+                d[i] = d[i + 1] = d[i + 2] = n;
+            }
+            return pixels;
+        };
+
+        // Acha o vermelho da imagem
+        function findRed(pixels) {
+            var d = pixels.data;
+            for (var i = 0; i < d.length; i += 4) {
+                var r = d[i];
+                var g = d[i + 1];
+                var b = d[i + 2];
+
+                var v = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+
+                var isTarget = r > g*1.1 && r > b*1.1;
+
+                if (isTarget) {
+                    d[i] = d[i + 1] = d[i + 2] = v
+                }
+            }
+            return pixels;
+        };
+        
+        // Substitui o verde da imagem
+        function replaceGreen(pixels) {
+            var d = pixels.data;
+            for (var i = 0; i < d.length; i += 4) {
+                var r = d[i];
+                var g = d[i + 1];
+                var b = d[i + 2];
+
+                var isTarget = g > r*1.1 && g > b*1.05;
+
+                if (isTarget) {
+                    d[i] = g;
+                    d[i + 1] = r;
+                }
+            }
+            return pixels;
+        }; 
+        
+        // Remove o azul da imagem
+        function removeBlue(pixels, negate) {
+            var d = pixels.data;
+            for (var i = 0; i < d.length; i += 4) {
+                var r = d[i];
+                var g = d[i + 1];
+                var b = d[i + 2];
+
+                var isTarget = b > r*1.1 && b > g*1.1;
+
+                if (negate) {
+                    isTarget = !isTarget;
+                }
+
+                if (isTarget) {
+                    d[i] = 0;
+                    d[i + 1] = 0;
+                    d[i + 2] = 0;
+                }
+            }
+            return pixels;
+        };         
+
+        // Quando a imagem carregar, aplicamos um filtro nela
+        window.onload = function () {
+            Filters.applyOn('water', 'destWater', findRed);
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- 
+        * Copyright (c) 2012 Google Inc.
+        *
+        * Licensed under the Apache License, Version 2.0 (the "License");
+        * you may not use this file except in compliance with the License.
+        * You may obtain a copy of the License at
+        *
+        *     http://www.apache.org/licenses/LICENSE-2.0
+        *
+        * Unless required by applicable law or agreed to in writing, software
+        * distributed under the License is distributed on an "AS IS" BASIS,
+        * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        * See the License for the specific language governing permissions and
+        * limitations under the License.
+        *
+        * Author: Ilmari Heikkinen <ilmari@google.com>
+        *
+    -->
+    <title>Filtros de Imagem</title>
+    <script src="../js/filters.js"></script>
+</head>
+<body>
+    <h2>Filtros de Imagem</h2>
+
+    <div>
+        <div style="width: 50%; float: left;">
+            <figure>
+                <img id="water" src="../img/demo_small.png" width="600" height="337">
+                <figcaption>Imagem original</figcaption>
+            </figure>
+        </div>
+        <div style="width: 50%; float: right">
+            <figure>
+                <canvas id="destWater" width="600" height="337"></canvas>
+                <figcaption>Imagem com filtro</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <div>
+        <div style="width: 50%; float: left;">
+            <figure>
+                <img id="car" src="../img/fuca.jpg" width="910" height="1365">
+                <figcaption>Imagem original</figcaption>
+            </figure>
+        </div>
+        <div style="width: 50%; float: right">
+            <figure>
+                <canvas id="destCar" width="910" height="1365"></canvas>
+                <figcaption>Imagem com filtro</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <!-- 
+        Implementação dos filtros
+    -->
+    <script type="text/javascript">
+
+        // Aplica um filtro de escala de cinza na imagem
+        function grayscale(pixels, args) {
+            var d = pixels.data;                     
+
+            // d contém o vetor de dados com todos os pixels da imagem. Como são 4 canais
+            // ao total (RGBA), podemos iterar no vetor com d.length incrementando o indice
+            // de 4 em 4 (i += 4). Para acessar os canais em cada pixels, podemos usar:
+            //   d[i]   -> red
+            //   d[i+1] -> green
+            //   d[i+2] -> blue
+
+            return pixels;
+        };
+
+        // Aumenta o brilho da imagem
+        function brightness(pixels, adjustment) {
+            return pixels;
+        };
+
+        // Aumenta a "potência de uma determinada cor"
+        function saturation(pixels, values) {
+            return pixels;
+        };
+
+        // Aplica um limiar na imagem
+        function threshold(pixels, threshold) {
+            return pixels;
+        };
+
+        // Acha o vermelho da imagem
+        function findRed(pixels) {
+            return pixels;
+        };
+        
+        // Substitui o verde da imagem
+        function replaceGreen(pixels) {
+            return pixels;
+        }; 
+        
+        // Remove o azul da imagem
+        function removeBlue(pixels, negate) {
+            return pixels;
+        };         
+
+        // Quando a imagem carregar, aplicamos um filtro nela
+        window.onload = function () {
+            Filters.applyOn('water', 'destWater', grayscale);
+        };
+    </script>
+</body>
+
+</html>

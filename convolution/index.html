@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- 
+        * Copyright (c) 2012 Google Inc.
+        *
+        * Licensed under the Apache License, Version 2.0 (the "License");
+        * you may not use this file except in compliance with the License.
+        * You may obtain a copy of the License at
+        *
+        *     http://www.apache.org/licenses/LICENSE-2.0
+        *
+        * Unless required by applicable law or agreed to in writing, software
+        * distributed under the License is distributed on an "AS IS" BASIS,
+        * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        * See the License for the specific language governing permissions and
+        * limitations under the License.
+        *
+        * Author: Ilmari Heikkinen <ilmari@google.com>
+        *
+    -->
+    <title>Filtros de Imagem (convolução)</title>
+    <script src="../js/filters.js"></script>
+</head>
+<body>
+    <h2>Filtros de Imagem (convolucação)</h2>
+
+    <div>
+        <div style="width: 50%; float: left;">
+            <figure>
+                <img id="water" src="../img/demo_small.png" width="600" height="337">
+                <figcaption>Imagem original</figcaption>
+            </figure>
+        </div>
+        <div style="width: 50%; float: right">
+            <figure>
+                <canvas id="destWater" width="600" height="337"></canvas>
+                <figcaption>Imagem com filtro</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <div>
+        <div style="width: 50%; float: left;">
+            <figure>
+                <img id="car" src="../img/fuca.jpg" width="910" height="1365">
+                <figcaption>Imagem original</figcaption>
+            </figure>
+        </div>
+        <div style="width: 50%; float: right">
+            <figure>
+                <canvas id="destCar" width="910" height="1365"></canvas>
+                <figcaption>Imagem com filtro</figcaption>
+            </figure>
+        </div>
+    </div>
+
+    <!-- 
+        Implementação dos filtros
+    -->
+    <script type="text/javascript">
+
+        // Kernel que não faz alteração alguma na imagem
+        var kernel = [
+             0,  0,  0,
+             0,  1,  0,
+             0,  0,  0
+        ];
+
+        // Kernel que aumenta a intensidade dos contornos
+        var sharpen = [
+        ];        
+
+        // Kernel que diminui a intensidade dos contornos (blur)
+        var blur = [
+        ];
+
+        function sharpenThenThreshold(src, dest) {
+        }
+
+        function blurThenThreshold(src, dest) {
+        }
+
+        function removeBlueThenThreshold(src, dest) {
+        }
+
+        // Quando a imagem carregar, aplicamos um filtro nela
+        window.onload = function () {
+            Filters.applyOn('water', 'destWater', Filters.convolute, kernel);
+        };
+    </script>
+</body>
+
+</html>
