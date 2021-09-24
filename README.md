@@ -9,15 +9,15 @@ Esse repositório contem exemplos e implementações de filtros para processamen
 
 > **Responsável pelo curso:** Fernando Bevilacqua  ([dovyski@gmail.com](mailto:dovyski@gmail.com))
 
-## 1. Começando
+## Começando
 
 Todo material deve funcionar em qualquer navegador moderno. Você pode simplesmente baixar esse repositório e abrir os arquivos. Para uma maior comodidade na utilização do material, siga os passos abaixo.
 
-### 1.1 Pré-requisitos
+### Pré-requisitos
 
 Certifique-se de que sua máquina tenha um ambiente de desenvolvimento instalado, por exemplo, [Visual Studio Code](https://code.visualstudio.com). Você também precisa do [git](https://gitforwindows.org/) instalado.
 
-#### 1.2 Clone o projeto
+#### Clone o projeto
 
 Clone o projeto em alguma pasta do seu computador, e.g. `c:\`:
 
@@ -25,7 +25,7 @@ Clone o projeto em alguma pasta do seu computador, e.g. `c:\`:
 git clone https://github.com/Dovyski/image-filters.git && cd image-filters
 ```
 
-### 1.3 Acessar conteúdo usando "hot reload"
+### Acessar conteúdo usando "hot reload"
 
 Para facilitar o teste e manipulação dos códigos, é muito recomendável que você tenha uma extensão que sirva as páginas html e atualize elas se houver mudança.
 
